@@ -19,7 +19,7 @@
     <nav class="hero__actions" aria-label="Appels à l’action">
       <a class="hero__cta"
          mat-raised-button
-         [routerLink]="hero.ctaPrimary.route"
+         [href]="hero.ctaPrimary.route"
          aria-label="{{ hero.ctaPrimary.label }}">
         <mat-icon aria-hidden="true">{{ hero.ctaPrimary.icon }}</mat-icon>
         <span class="text-tweak">{{ hero.ctaPrimary.label }}</span>
@@ -157,7 +157,7 @@
  
 
   <!-- 8) GALLERIES -->
-  <section class="gallery glass" role="region" aria-label="Galerie interactive de projets">
+  <section id="gallery" class="gallery glass" role="region" aria-label="Galerie interactive de projets">
     <header class="section-head gallery__head">
       <h2 class="section-title">
         <mat-icon aria-hidden="true">photo_library</mat-icon>

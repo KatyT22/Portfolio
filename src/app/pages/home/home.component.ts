@@ -77,7 +77,7 @@ export class HomeComponent implements AfterViewInit {
     subtitle: 'Designer/Chercheuse UX/UI, Développeuse Fullstack',
     tagline:
       'Je conçois des interfaces simples, utiles et élégantes, guidées par la recherche et centrées sur l’humain.',
-    ctaPrimary: { label: 'Voir mes maquettes', icon: 'collections', route: '/projects' },
+    ctaPrimary: { label: 'Voir mes maquettes', icon: 'collections', route: '#gallery' },
     ctaSecondary: { label: 'Me contacter', icon: 'mail', route: '/contact' },
     image: 'assets/img/avatar.png',
   };
