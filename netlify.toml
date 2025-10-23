@@ -4,14 +4,3 @@
 
 [[plugins]]
   package = "@netlify/angular-runtime"
-
-# ✅ Route toutes les requêtes vers l'Edge Function SSR
-[[edge_functions]]
-  function = "angular-ssr"
-  path = "/*"
-
-# ✅ Backup redirect si l'Edge Function échoue
-[[redirects]]
-  from = "/*"
-  to = "/.netlify/edge-functions/angular-ssr"
-  status = 200
