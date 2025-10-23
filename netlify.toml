@@ -1,5 +1,5 @@
 [build]
-  command = "npm run build:ssr"
+  command = "rm -rf .netlify && npm run build:ssr"
   publish = "dist/portfolio-katy/browser"
 
 [[plugins]]
