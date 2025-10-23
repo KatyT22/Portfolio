@@ -14,56 +14,21 @@
 
   <!-- 2️⃣ Formulaire de contact -->
   <mat-card class="contact-card glass">
-    <form 
-      [formGroup]="form" 
-      (ngSubmit)="submit()" 
-      novalidate 
-      class="contact-form"
-      name="contact"
-      method="POST"
-      data-netlify="true"
-      netlify-honeypot="bot-field"
-    >
-      <!-- ✅ Champs cachés obligatoires pour Netlify -->
-      <input type="hidden" name="form-name" value="contact" />
-      
-      <!-- ✅ Honeypot anti-spam (caché) -->
-      <p style="display: none;">
-        <label>Don't fill this out if you're human: <input name="bot-field" /></label>
-      </p>
-
+    <form [formGroup]="form" (ngSubmit)="submit()" novalidate class="contact-form">
       <mat-form-field appearance="outline" class="form-field">
         <mat-label>Nom</mat-label>
-        <input 
-          matInput 
-          type="text" 
-          formControlName="name" 
-          name="name"
-          required 
-          aria-label="Nom complet" 
-        />
-        @if (form.get('name')?.invalid && form.get('name')?.touched) {
-          <mat-error>
-            Entrez un nom valide (min. 2&nbsp;caractères).
-          </mat-error>
-        }
+        <input matInput type="text" formControlName="name" required aria-label="Nom complet" />
+        <mat-error *ngIf="form.get('name')?.invalid && form.get('name')?.touched">
+          Entrez un nom valide (min. 2&nbsp;caractères).
+        </mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="form-field">
         <mat-label>Email</mat-label>
-        <input 
-          matInput 
-          type="email" 
-          formControlName="email" 
-          name="email"
-          required 
-          aria-label="Adresse e-mail" 
-        />
-        @if (form.get('email')?.invalid && form.get('email')?.touched) {
-          <mat-error>
-            Adresse e-mail invalide.
-          </mat-error>
-        }
+        <input matInput type="email" formControlName="email" required aria-label="Adresse e-mail" />
+        <mat-error *ngIf="form.get('email')?.invalid && form.get('email')?.touched">
+          Adresse e-mail invalide.
+        </mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="form-field">
@@ -71,16 +36,13 @@
         <textarea
           matInput
           formControlName="message"
-          name="message"
           rows="5"
           required
           aria-label="Votre message"
         ></textarea>
-        @if (form.get('message')?.invalid && form.get('message')?.touched) {
-          <mat-error>
-            Votre message doit contenir au moins 10&nbsp;caractères.
-          </mat-error>
-        }
+        <mat-error *ngIf="form.get('message')?.invalid && form.get('message')?.touched">
+          Votre message doit contenir au moins 10&nbsp;caractères.
+        </mat-error>
       </mat-form-field>
 
       <button
@@ -88,23 +50,11 @@
         color="primary"
         class="submit-btn"
         type="submit"
-        [disabled]="form.invalid || isSubmitting"
+        [disabled]="form.invalid"
       >
-        <mat-icon aria-hidden="true">{{ isSubmitting ? 'hourglass_empty' : 'send' }}</mat-icon>
-        {{ isSubmitting ? 'Envoi...' : 'Envoyer' }}
+        <mat-icon aria-hidden="true">send</mat-icon>
+        Envoyer
       </button>
-
-      <!-- ✅ Messages de feedback -->
-      @if (submitSuccess) {
-        <div class="alert alert-success" role="alert">
-          ✓ Message envoyé avec succès !
-        </div>
-      }
-      @if (submitError) {
-        <div class="alert alert-error" role="alert">
-          ✗ Erreur lors de l'envoi. Veuillez réessayer.
-        </div>
-      }
     </form>
   </mat-card>
 </main>
