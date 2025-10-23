@@ -1,0 +1,228 @@
+<!-- =========================================
+     🏠 Home — Portfolio CV (Angular 20 + M3)
+     Semantic | A11y | Mobile-first | Glass UI
+     ========================================= -->
+<main class="home" role="main" aria-label="Page d’accueil — Portfolio UX/UI">
+
+  <!-- 1) HERO -->
+  <section class="hero glass halo" role="region" aria-label="Présentation">
+    <header class="hero__header">
+      <h1 class="hero__title">{{ hero.title }}</h1>
+      <p class="hero__subtitle">{{ hero.subtitle }}</p>
+      <p class="hero__tagline">{{ hero.tagline }}</p>
+    </header>
+
+    <figure class="hero__media" aria-label="Avatar">
+      <img [src]="hero.image" alt="Avatar {{ hero.title }}" width="192" height="192" loading="eager" decoding="async" />
+    </figure>
+
+    <nav class="hero__actions" aria-label="Appels à l’action">
+      <a class="hero__cta"
+         mat-raised-button
+         [routerLink]="hero.ctaPrimary.route"
+         aria-label="{{ hero.ctaPrimary.label }}">
+        <mat-icon aria-hidden="true">{{ hero.ctaPrimary.icon }}</mat-icon>
+        <span class="text-tweak">{{ hero.ctaPrimary.label }}</span>
+      </a>
+
+      <a class="hero__cta hero__cta--ghost"
+         mat-stroked-button
+         [routerLink]="hero.ctaSecondary.route"
+         aria-label="{{ hero.ctaSecondary.label }}">
+        <mat-icon aria-hidden="true">{{ hero.ctaSecondary.icon }}</mat-icon>
+        <span class="text-tweak">{{ hero.ctaSecondary.label }}</span>
+      </a>
+    </nav>
+  </section>
+
+  <!-- 2️⃣ À propos -->
+  <section class="about glass halo" role="region" aria-label="À propos de moi">
+    <div class="about__inner">
+      <div class="about__textblock">
+        <header class="section-head">
+          <h2 class="section-title">
+            <mat-icon class="icon-person" aria-hidden="true">person</mat-icon>
+            <span class="text-tweak">{{ about.title }}</span>
+          </h2>
+        </header>
+
+        <p class="about__text">
+          {{ about.text }}
+        </p>
+
+        <a mat-raised-button
+          class="about__cta"
+          [routerLink]="about.button.route"
+          aria-label="{{ about.button.label }}">
+          <mat-icon aria-hidden="true">auto_stories</mat-icon>
+          <span class="text-tweak">{{ about.button.label }}</span>
+        </a>
+      </div>
+
+      <div class="radar-wrapper">
+        <canvas id="skillsRadar"></canvas>
+      </div>
+    </div>
+  </section>
+
+
+
+
+
+  <!-- 4️⃣ PROJETS RÉCENTS -->
+  <section class="projects" role="region" aria-label="Projets">
+    <header class="section-head">
+      <h2 class="section-title">
+        <mat-icon aria-hidden="true">work</mat-icon>
+        <span class="text-tweak">Projets</span>
+      </h2>
+    </header>
+
+    <div class="projects__grid">
+      @for (p of projects; track p.id) {
+        <article class="project" [attr.aria-label]="p.title">
+          <div class="project__media">
+            <img [src]="p.image" [alt]="p.title" loading="lazy" decoding="async" />
+            <div class="project__overlay">
+              <mat-icon aria-hidden="true">visibility</mat-icon>
+            </div>
+          </div>
+
+          <div class="project__info">
+            <h3 class="project__title">{{ p.title }}</h3>
+            <p class="project__desc">{{ p.description }}</p>
+
+            <a mat-button
+              class="project__cta"
+              [routerLink]="p.route"
+              aria-label="Voir le projet {{ p.title }}">
+              <mat-icon aria-hidden="true">arrow_forward</mat-icon>
+              <span class="text-tweak">Voir</span>
+            </a>
+          </div>
+        </article>
+      }
+    </div>
+  </section>
+
+
+
+ 
+  <!-- 5) TOOLS & TECHNOLOGIES -->
+  <section class="tools glass" role="region" aria-label="Outils et technologies">
+    <header class="section-head">
+      <h2 class="section-title">
+        <mat-icon aria-hidden="true">construction</mat-icon>
+        <span class="text-tweak">Outils & technologies</span>
+      </h2>
+    </header>
+
+    <div class="tools__list" role="list">
+      @for (t of tools; track t.name) {
+        <button mat-stroked-button
+                role="listitem"
+                class="tool"
+                [matTooltip]="t.tooltip"
+                matTooltipPosition="above"
+                aria-label="{{ t.name }} — {{ t.tooltip }}">
+          <mat-icon aria-hidden="true" [svgIcon]="t.logo"></mat-icon>
+          <span class="text-tweak">{{ t.name }}</span>
+        </button>
+      }
+    </div>
+  </section>
+
+  <!-- 6) VALUES -->
+  <section class="values" role="region" aria-label="Valeurs et philosophie UX">
+    <header class="section-head">
+      <h2 class="section-title">
+        <mat-icon aria-hidden="true">verified</mat-icon>
+        <span class="text-tweak">Valeurs & philosophie</span>
+      </h2>
+    </header>
+
+    <div class="values__grid">
+      @for (v of values; track v.title) {
+        <mat-card class="value glass" role="article" [attr.aria-label]="v.title">
+          <div class="icon-circle icon-circle--soft" aria-hidden="true">
+            <mat-icon>{{ v.icon }}</mat-icon>
+          </div>
+          <h3 class="value__title">{{ v.title }}</h3>
+          <p class="value__desc">{{ v.description }}</p>
+        </mat-card>
+      }
+    </div>
+  </section>
+
+ 
+
+  <!-- 8) GALLERIES -->
+  <section class="gallery glass" role="region" aria-label="Galerie interactive de projets">
+    <header class="section-head gallery__head">
+      <h2 class="section-title">
+        <mat-icon aria-hidden="true">photo_library</mat-icon>
+        <span class="text-tweak">Galerie</span>
+      </h2>
+    </header>
+
+    <!-- 🔹 Conteneur global pour aligner image principale et miniatures -->
+    <div class="gallery__content">
+      <!-- 🖼️ Image principale -->
+      <div class="gallery__main">
+        <img
+          class="gallery__main-img"
+          [src]="selectedImage.src"
+          [alt]="selectedImage.alt"
+          loading="eager"
+          decoding="async"
+        />
+        <p class="gallery__caption">{{ selectedImage.alt }}</p>
+      </div>
+
+      <!-- 🖼️ Miniatures -->
+      <div class="gallery__thumbnails">
+        @for (img of galleryImages; track img.src) {
+          <button
+            class="gallery__thumb"
+            [class.active]="img.src === selectedImage.src"
+            (click)="selectImage(img)"
+            aria-label="Afficher {{ img.alt }}"
+          >
+            <img [src]="img.src" [alt]="img.alt" loading="lazy" decoding="async" />
+          </button>
+        }
+      </div>
+    </div>
+  </section>
+
+  
+
+  <!-- 9) FINAL CTA -->
+  <section class="final-cta halo" role="region" aria-label="Appel à l’action final">
+    <h2 class="final-cta__text">{{ finalCta.text }}</h2>
+    <a mat-raised-button
+       class="final-cta__button"
+       [routerLink]="finalCta.button.route"
+       aria-label="{{ finalCta.button.label }}">
+      <mat-icon aria-hidden="true">{{ finalCta.button.icon }}</mat-icon>
+      <span class="text-tweak">{{ finalCta.button.label }}</span>
+    </a>
+  </section>
+
+
+   <!-- 7) STATS -->
+  <section class="stats glass halo" role="region" aria-label="Statistiques">
+    <div class="stats__grid">
+      @for (s of stats; track s.label) {
+        <article class="stat" [attr.aria-label]="s.label">
+          <div class="stat__icon" aria-hidden="true">
+            <mat-icon>{{ s.icon }}</mat-icon>
+          </div>
+          <div class="stat__value" [attr.data-value]="s.value">{{ s.value }}</div>
+          <div class="stat__label">{{ s.label }}</div>
+        </article>
+      }
+    </div>
+  </section>
+
+</main>

@@ -1,0 +1,238 @@
+:host {
+  display: block;
+}
+
+/* ====== Layout global ====== */
+.contact {
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+  padding: 0;
+  margin: 0;
+  display: block;
+  isolation: auto;
+  /* ✅ Ajoute un espace sur les côtés de l’écran */
+  padding-inline: clamp(1rem, 4vw, 3rem);
+
+}
+
+/* ====== En-tête de section ====== */
+
+/* ===============================
+   🔹 Headers de section modernes et épurés
+   =============================== */
+
+.section-header {
+  display: grid;
+  justify-items: center;
+  text-align: center;
+  gap: 0.75rem;
+  margin-inline: auto;
+  margin-block: clamp(2rem, 4vw, 3.5rem) clamp(1rem, 3vw, 2rem);
+  position: relative;
+  animation: fade-in 0.6s ease both;
+
+  /* 🌿 Icône circulaire décorative */
+  .icon-circle {
+    inline-size: 68px;
+    block-size: 68px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: color-mix(in oklab, var(--mat-sys-primary-container) 85%, transparent);
+    box-shadow: 0 4px 12px color-mix(in oklab, var(--mat-sys-primary) 25%, transparent);
+    backdrop-filter: blur(10px) saturate(1.1);
+    -webkit-backdrop-filter: blur(10px) saturate(1.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    mat-icon {
+      font-size: 32px;
+      width: 1em;
+      height: 1em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+      overflow: visible; /* ✔️ évite le rognage */
+      -webkit-font-smoothing: antialiased;
+      text-rendering: geometricPrecision;
+    }
+
+    &:hover {
+      transform: scale(1.06);
+      box-shadow: 0 6px 18px color-mix(in oklab, var(--mat-sys-primary) 35%, transparent);
+
+      mat-icon {
+        transform: scale(1.1);
+      }
+    }
+  }
+
+  /* ✨ Titre principal plus grand */
+  .section-title {
+    font-size: clamp(2.2rem, 4vw, 3rem);
+    font-weight: 800;
+    letter-spacing: -0.015em;
+    color: var(--mat-sys-on-surface);
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+
+    mat-icon {
+      font-size: 1.8rem;
+      color: var(--mat-sys-primary);
+      transform: translateY(2px);
+    }
+
+    .text-align {
+      position: relative;
+      top: -1px; /* alignement optique */
+    }
+  }
+
+  /* 💬 Sous-titre */
+  .section-subtitle {
+    margin: 0;
+    font-size: clamp(1rem, 1.8vw, 1.15rem);
+    line-height: 1.6;
+    color: var(--mat-sys-on-surface-variant);
+    max-inline-size: 60ch;
+    opacity: 0.9;
+  }
+ 
+}
+
+/* 🎨 Accent de section : contact */
+.contact__head .icon-circle {
+  background: color-mix(in oklab, var(--mat-sys-tertiary-container) 85%, transparent);
+  box-shadow: 0 4px 12px color-mix(in oklab, var(--mat-sys-tertiary) 25%, transparent);
+
+  mat-icon {
+    color: var(--mat-sys-on-tertiary-container);
+  }
+}
+
+/* ✨ Animation douce */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* ====== Carte & effet glass ====== */
+.glass {
+  backdrop-filter: blur(10px) saturate(1.1);
+  -webkit-backdrop-filter: blur(10px) saturate(1.1);
+}
+
+.contact-card {
+  background: color-mix(in oklab, var(--mat-sys-surface) 80%, transparent);
+  border-radius: 16px;
+  box-shadow: var(--shadow-2);
+  padding: clamp(1rem, 3vw, 1.5rem);
+  transition: box-shadow 200ms ease, transform 200ms ease;
+  animation: fade-slide 500ms ease 60ms both;
+}
+
+/* légère respiration au survol (sobre) */
+.contact-card:hover {
+  transform: translateY(-1px);
+}
+
+/* ====== Formulaire ====== */
+.contact-form {
+  display: grid;
+  gap: 1rem;
+}
+
+/* champs pleine largeur */
+.form-field {
+  width: 100%;
+  color: var(--mat-sys-on-surface);
+}
+
+
+
+/* ====== Bouton envoyer ====== */
+.submit-btn {
+  justify-self: start;
+  border-radius: 16px;
+  box-shadow: var(--shadow-2);
+  gap: 0.5rem;
+  display: inline-flex;
+  align-items: center;
+  transition: transform 160ms ease, box-shadow 160ms ease, filter 160ms ease;
+}
+
+.submit-btn mat-icon {
+  font-size: 22px;
+  line-height: 1;
+}
+
+.submit-btn:not(:disabled):hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px color-mix(in oklab, var(--mat-sys-primary) 25%, transparent);
+  filter: drop-shadow(0 0 6px color-mix(in oklab, var(--mat-sys-primary) 30%, transparent));
+}
+
+.submit-btn:disabled {
+  opacity: 0.6;
+  box-shadow: var(--shadow-1);
+  cursor: not-allowed;
+}
+
+/* ====== Motion preferences ====== */
+@media (prefers-reduced-motion: reduce) {
+  .contact-card,
+  .section-header,
+  .submit-btn {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+
+
+/* ====== Petites améliorations responsives ====== */
+@container style(--any: 0) { /* neutre, évite warnings si pas de container queries */ }
+
+@media (min-width: 640px) {
+  .contact-form {
+    grid-template-columns: 1fr 1fr;
+    grid-auto-flow: row;
+  }
+
+  /* Nom & Email côte à côte, Message en full width */
+  .form-field:nth-child(1),
+  .form-field:nth-child(2) {
+    grid-column: span 1;
+  }
+  .form-field:nth-child(3) {
+    grid-column: 1 / -1;
+  }
+
+  .submit-btn {
+    grid-column: 1 / 2;
+  }
+}
+
+/* ====== Animation d'apparition ====== */
+@keyframes fade-slide {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

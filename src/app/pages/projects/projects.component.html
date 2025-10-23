@@ -1,0 +1,74 @@
+<section class="projects-section" role="region" aria-label="Projets">
+  <!-- 1️⃣ Header de section -->
+  <header class="section-header projects__head" role="heading" aria-level="2">
+    <span class="icon-circle" aria-hidden="true">
+      <mat-icon>workspaces</mat-icon>
+    </span>
+    <h2 class="section-title">
+      <span class="text-align">Projets</span>
+    </h2>
+    <p class="section-subtitle">Mes réalisations.</p>
+  </header>
+
+
+  <!-- 2️⃣ Grille des projets -->
+  <div class="projects-grid">
+    @for (p of projects; track p.id) {
+      <article role="article" aria-label="{{ p.title }}" class="grid-item">
+        <mat-card
+          class="project-card"
+          tabindex="0"
+          (click)="open(p)"
+          (keydown.enter)="open(p)"
+          (keydown.space)="open(p)"
+          aria-label="Voir {{ p.title }}"
+        >
+          <div class="card-media" aria-hidden="true">
+            <img [src]="p.image" [alt]="p.title" loading="lazy" />
+          </div>
+
+          <mat-card-header>
+            <mat-card-title>{{ p.title }}</mat-card-title>
+            <mat-card-subtitle>{{ p.description }}</mat-card-subtitle>
+          </mat-card-header>
+
+          <mat-card-content>
+            <div class="tools" role="list">
+              @for (t of p.tools | slice:0:4; track t.name) {
+                <button
+                  mat-stroked-button
+                  role="listitem"
+                  class="tool"
+                  [matTooltip]="t.tooltip"
+                  matTooltipPosition="above"
+                  aria-label="{{ t.name }} — {{ t.tooltip }}">
+                  <mat-icon aria-hidden="true" [svgIcon]="t.logo"></mat-icon>
+                  <span class="text-tweak">{{ t.name }}</span>
+                </button>
+              }
+
+              <!-- 3 petits points si plus de 4 outils -->
+              @if (p.tools.length > 4) {
+                <span class="tools-ellipsis" aria-hidden="true">…</span>
+              }
+            </div>
+          </mat-card-content>
+
+
+
+          <mat-card-actions align="end">
+            <button
+              mat-stroked-button
+              type="button"
+              (click)="$event.stopPropagation(); open(p)"
+              aria-label="Voir le projet {{ p.title }}"
+            >
+              <mat-icon aria-hidden="true">open_in_new</mat-icon>
+              <span class="text-tweak">Voir le projet</span>
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      </article>
+    }
+  </div>
+</section>

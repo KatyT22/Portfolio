@@ -1,0 +1,38 @@
+<!-- ===============================
+     🧭 Parcours — ExperienceComponent
+     Semantic | A11y | Angular 20
+     =============================== -->
+<section class="experience" role="region" aria-label="Parcours professionnel">
+  <header class="section-header experience__head" role="heading" aria-level="2">
+    <span class="icon-circle" aria-hidden="true">
+      <mat-icon>work</mat-icon>
+    </span>
+    <h2 class="section-title">
+      <span class="text-align">{{ section.title }}</span>
+    </h2>
+    <p class="section-subtitle experience__intro">
+      {{ section.intro }}
+    </p>
+  </header>
+
+
+  <div class="grid" role="list">
+    @for (xp of experiences; track xp.title) {
+      <mat-card class="card" role="article" [attr.aria-label]="xp.title">
+        <mat-card-header>
+          <div class="icon-circle" aria-hidden="true">
+            <mat-icon>{{ xp.icon || 'work' }}</mat-icon>
+          </div>
+          <div class="card__titles">
+            <mat-card-title>{{ xp.title }}</mat-card-title>
+            <mat-card-subtitle>{{ xp.subtitle }}</mat-card-subtitle>
+          </div>
+        </mat-card-header>
+
+        <mat-card-content>
+          <p class="card__desc">{{ xp.description }}</p>
+        </mat-card-content>
+      </mat-card>
+    }
+  </div>
+</section>

@@ -1,0 +1,122 @@
+
+  <!-- 📱 MENU LATÉRAL MOBILE -->
+  <mat-sidenav
+    #drawer
+    class="drawer"
+    mode="over"
+    position="start"
+    [autoFocus]="true"
+    role="navigation"
+    aria-label="Menu latéral"
+  >
+    <header class="drawer-header">
+      <div class="drawer-title">
+        <mat-icon aria-hidden="true">flare</mat-icon>
+        <h2>{{ title }}</h2>
+      </div>
+      <button
+        mat-icon-button
+        class="close-btn"
+        aria-label="Fermer le menu"
+        (click)="drawer.close()"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </header>
+
+    <mat-nav-list class="drawer-list">
+      @for (item of navItems; track item.label) {
+        <a
+          mat-list-item
+          [routerLink]="item.route"
+          routerLinkActive="active"
+          (click)="drawer.close()"
+        >
+          <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
+          <span matListItemTitle>{{ item.label }}</span>
+        </a>
+      }
+    </mat-nav-list>
+
+    <div class="drawer-actions">
+      @for (a of toolbarActions; track a.aria) {
+        <button
+          mat-stroked-button
+          class="action"
+          type="button"
+          [attr.aria-label]="a.aria"
+          (click)="a?.click()"
+        >
+          <mat-icon>{{ a.icon }}</mat-icon>
+          <span>{{ a.aria }}</span>
+        </button>
+      }
+    </div>
+  </mat-sidenav>
+
+  <!-- 💫 TOOLBAR FLOTTANTE -->
+  <mat-toolbar class="toolbar" role="banner">
+    <div class="left">
+      <button
+        mat-icon-button
+        class="menu-btn"
+        aria-label="Ouvrir le menu"
+        (click)="drawer.open()"
+      >
+        <mat-icon>menu</mat-icon>
+      </button>
+
+      <a class="brand" [routerLink]="'/home'" aria-label="Aller à l’accueil">
+        <mat-icon class="brand-icon" aria-hidden="true">flare</mat-icon>
+        <span class="brand-text">{{ title }}</span>
+      </a>
+    </div>
+
+    <nav class="center" aria-label="Navigation principale (desktop)">
+      @for (item of navItems; track item.label) {
+        @if (item.type === 'link') {
+          <a
+            mat-button
+            class="nav-link"
+            [routerLink]="item.route"
+            routerLinkActive="active"
+          >
+            <mat-icon>{{ item.icon }}</mat-icon>
+            <span>{{ item.label }}</span>
+          </a>
+        }
+      }
+    </nav>
+
+    <div class="right">
+
+      @for (item of navItems; track item.label) {
+        @if (item.type === 'button') {
+          <a
+            mat-flat-button
+            class="cta"
+            [routerLink]="item.route"
+            routerLinkActive="active"
+          >
+            <mat-icon>{{ item.icon }}</mat-icon>
+            <span>{{ item.label }}</span>
+          </a>
+        }
+      }
+
+
+      @for (a of toolbarActions; track a.aria) {
+        <button
+          mat-icon-button
+          class="action-btn"
+          [attr.aria-label]="a.aria"
+          (click)="a?.click()"
+        >
+          <mat-icon>{{ a.icon }}</mat-icon>
+        </button>
+      }
+
+      
+    </div>
+  </mat-toolbar>
+

@@ -1,0 +1,60 @@
+<main class="contact" role="region" aria-label="Contact">
+  <!-- 1️⃣ Header de section -->
+  <header class="section-header contact__head" role="heading" aria-level="2">
+    <span class="icon-circle" aria-hidden="true">
+      <mat-icon>mail</mat-icon>
+    </span>
+    <h2 class="section-title">
+      <span class="text-align">Contact</span>
+    </h2>
+    <p class="section-subtitle">
+      Vous souhaitez collaborer, échanger ou me laisser un message ? Remplissez le formulaire ci-dessous.
+    </p>
+  </header>
+
+  <!-- 2️⃣ Formulaire de contact -->
+  <mat-card class="contact-card glass">
+    <form [formGroup]="form" (ngSubmit)="submit()" novalidate class="contact-form">
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Nom</mat-label>
+        <input matInput type="text" formControlName="name" required aria-label="Nom complet" />
+        <mat-error *ngIf="form.get('name')?.invalid && form.get('name')?.touched">
+          Entrez un nom valide (min. 2&nbsp;caractères).
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Email</mat-label>
+        <input matInput type="email" formControlName="email" required aria-label="Adresse e-mail" />
+        <mat-error *ngIf="form.get('email')?.invalid && form.get('email')?.touched">
+          Adresse e-mail invalide.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Message</mat-label>
+        <textarea
+          matInput
+          formControlName="message"
+          rows="5"
+          required
+          aria-label="Votre message"
+        ></textarea>
+        <mat-error *ngIf="form.get('message')?.invalid && form.get('message')?.touched">
+          Votre message doit contenir au moins 10&nbsp;caractères.
+        </mat-error>
+      </mat-form-field>
+
+      <button
+        mat-raised-button
+        color="primary"
+        class="submit-btn"
+        type="submit"
+        [disabled]="form.invalid"
+      >
+        <mat-icon aria-hidden="true">send</mat-icon>
+        Envoyer
+      </button>
+    </form>
+  </mat-card>
+</main>

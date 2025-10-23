@@ -1,0 +1,273 @@
+/* ===============================
+   🧭 Section : Parcours professionnel (Timeline)
+   =============================== */
+
+.experience {
+  background: none;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+  margin: 0;
+  display: block;
+  isolation: isolate;
+  padding-inline: clamp(1rem, 4vw, 3rem);
+}
+
+
+
+/* ===============================
+   🔹 Header de section
+   =============================== */
+
+.section-header.experience__head {
+  display: grid;
+  justify-items: center;
+  text-align: center;
+  gap: 0.85rem;
+  margin-block: clamp(2rem, 4vw, 3.5rem) clamp(1rem, 3vw, 2rem);
+  animation: fade-in 0.6s ease both;
+
+  .icon-circle {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: color-mix(in oklab, var(--mat-sys-tertiary-container) 80%, transparent);
+    box-shadow: 0 6px 18px color-mix(in oklab, var(--mat-sys-tertiary) 25%, transparent);
+    backdrop-filter: blur(12px) saturate(1.2);
+    -webkit-backdrop-filter: blur(12px) saturate(1.2);
+    transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+
+    mat-icon {
+      font-size: 34px;
+      color: var(--mat-sys-on-tertiary-container);
+      line-height: 1;
+      width: 1em;
+      height: 1em;
+      display: block;
+    }
+
+    &:hover {
+      transform: translateY(-3px) scale(1.07);
+      box-shadow: 0 8px 22px color-mix(in oklab, var(--mat-sys-tertiary) 30%, transparent);
+    }
+  }
+
+  .section-title {
+    font-size: clamp(2.4rem, 4vw, 3.2rem);
+    font-weight: 800;
+    letter-spacing: -0.015em;
+    color: var(--mat-sys-on-surface);
+    margin: 0;
+  }
+
+  .section-subtitle {
+    margin: 0;
+    font-size: clamp(1rem, 1.8vw, 1.15rem);
+    line-height: 1.6;
+    color: var(--mat-sys-on-surface-variant);
+    opacity: 0.85;
+    max-inline-size: 60ch;
+  }
+}
+
+/* ------------------------------
+   Ligne de timeline centrale
+   ------------------------------ */
+.grid {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  margin-block: clamp(2rem, 5vw, 4rem);
+
+  /* Ligne verticale centrale */
+  &::before {
+    content: "";
+    position: absolute;
+    inset-block: 0;
+    left: 50%;
+    width: 3px;
+    background: color-mix(in oklab, var(--mat-sys-outline-variant) 60%, transparent);
+    transform: translateX(-50%);
+    border-radius: 3px;
+  }
+
+  @media (max-width: 900px) {
+    &::before {
+      left: 1.5rem; /* ligne à gauche sur mobile */
+      transform: none;
+    }
+  }
+}
+
+/* ------------------------------
+   Cartes de parcours = événements
+   ------------------------------ */
+.card {
+  position: relative;
+  border-radius: 1.25rem;
+  backdrop-filter: blur(10px) saturate(1.15);
+  -webkit-backdrop-filter: blur(10px) saturate(1.15);
+  background: color-mix(in oklab, var(--mat-sys-surface-container-high) 85%, transparent);
+  border: 1px solid color-mix(in oklab, var(--mat-sys-outline-variant) 40%, transparent);
+  box-shadow:
+    0 4px 12px color-mix(in oklab, var(--mat-sys-outline-variant) 25%, transparent),
+    inset 0 0 12px color-mix(in oklab, var(--mat-sys-surface-container-lowest) 50%, transparent);
+  padding: 1.25rem 1.5rem;
+  transition: all 0.35s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow:
+      0 8px 22px color-mix(in oklab, var(--mat-sys-primary) 25%, transparent),
+      inset 0 0 16px color-mix(in oklab, var(--mat-sys-surface-container-highest) 60%, transparent);
+  }
+
+  /* Connecteur circulaire */
+  &::before {
+    content: "";
+    position: absolute;
+    top: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--mat-sys-primary);
+    box-shadow: 0 0 0 6px color-mix(in oklab, var(--mat-sys-primary) 25%, transparent);
+    z-index: 2;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  &:hover::before {
+    transform: translateX(-50%) scale(1.2);
+    box-shadow: 0 0 0 8px color-mix(in oklab, var(--mat-sys-primary) 40%, transparent);
+  }
+
+  /* --- Layout desktop alterné --- */
+  @media (min-width: 901px) {
+    width: 50%;
+
+    &:nth-child(odd) {
+      align-self: flex-start;
+      text-align: left;
+
+      &::before {
+        left: calc(100% + 1.5rem);
+        transform: none;
+      }
+    }
+
+    &:nth-child(even) {
+      align-self: flex-end;
+      text-align: right;
+
+      &::before {
+        left: auto;
+        right: calc(100% + 1.5rem);
+        transform: none;
+      }
+
+      mat-card-header {
+        flex-direction: row-reverse;
+      }
+
+      .card__titles {
+        text-align: right;
+      }
+    }
+  }
+
+  /* --- Layout mobile (simple colonne) --- */
+  @media (max-width: 900px) {
+    margin-left: 2.75rem;
+
+    &::before {
+      left: -2rem;
+      transform: none;
+    }
+  }
+}
+
+/* ------------------------------
+   Header et contenu de chaque carte
+   ------------------------------ */
+.card mat-card-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0;
+}
+
+.card .icon-circle {
+  inline-size: 52px;
+  block-size: 52px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: color-mix(in oklab, var(--mat-sys-primary-container) 85%, transparent);
+  box-shadow: 0 4px 12px color-mix(in oklab, var(--mat-sys-primary) 25%, transparent);
+  flex-shrink: 0;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  mat-icon {
+    font-size: 26px;
+    color: var(--mat-sys-on-primary-container);
+  }
+
+  &:hover {
+    transform: scale(1.08);
+    box-shadow: 0 6px 18px color-mix(in oklab, var(--mat-sys-primary) 35%, transparent);
+  }
+}
+
+.card__titles {
+  display: grid;
+  gap: 0.1rem;
+
+  mat-card-title {
+    margin: 0;
+    font-weight: 700;
+    font-size: 1.15rem;
+    color: var(--mat-sys-on-surface);
+  }
+
+  mat-card-subtitle {
+    margin: 0;
+    font-size: 0.95rem;
+    color: var(--mat-sys-on-surface-variant);
+  }
+}
+
+.card mat-card-content {
+  padding: 0.75rem 0 0;
+}
+
+.card__desc {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: var(--mat-sys-on-surface-variant);
+}
+
+/* ------------------------------
+   Animations légères
+   ------------------------------ */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.card {
+  animation: fade-in 0.6s ease both;
+  animation-delay: calc(var(--i, 0) * 100ms);
+}

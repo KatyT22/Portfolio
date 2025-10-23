@@ -1,0 +1,39 @@
+
+  <header class="section-header skills__head" role="heading" aria-level="2">
+    <span class="icon-circle" aria-hidden="true">
+      <mat-icon>psychology</mat-icon>
+    </span>
+    <h2 class="section-title">
+      <span class="text-align">Compétences techniques</span>
+    </h2>
+    <p class="section-subtitle">
+      Vue d’ensemble de mes domaines d’expertise technique et créative.
+    </p>
+  </header>
+
+  <div class="groups__container">
+    @for (group of groups; track group.title) {
+      <article class="group-card glass">
+        <header class="group-card__head">
+          <div class="group-icon">
+            <mat-icon aria-hidden="true">{{ group.icon }}</mat-icon>
+          </div>
+          <div>
+            <h3 class="group-title">{{ group.title }}</h3>
+            <p class="group-intro">{{ group.intro }}</p>
+          </div>
+        </header>
+
+        <ul class="skills-list">
+          @for (item of group.items; track item.label) {
+            <li class="skill-item">
+              <mat-icon aria-hidden="true">check_circle</mat-icon>
+              <span class="skill-label">{{ item.label }}</span>
+              <span class="skill-value">{{ item.value }}%</span>
+            </li>
+          }
+        </ul>
+      </article>
+    }
+  </div>
+

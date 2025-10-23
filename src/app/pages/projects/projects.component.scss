@@ -1,0 +1,437 @@
+/* ===============================
+   Projets — Material You + Glass UI
+   Mobile-first • No hardcoded colors
+   =============================== */
+
+:host {
+  display: block;
+  /* ❌ pas de background ici — la couleur vient du thème global */
+}
+
+/* 🚫 Supprime tout fond ou bord de la section */
+.projects-section {
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+  padding: 0;
+  margin: 0;
+  display: block;
+  isolation: auto;
+  /* ✅ Ajoute un espace sur les côtés de l’écran */
+  padding-inline: clamp(1rem, 4vw, 3rem);
+}
+
+/* ===============================
+   🔹 Headers de section unifiés
+   Style cohérent pour Experience & Projects
+   =============================== */
+
+  /* ===============================
+   🔹 Headers de section modernes et épurés
+   =============================== */
+
+.section-header {
+  display: grid;
+  justify-items: center;
+  text-align: center;
+  gap: 0.75rem;
+  margin-inline: auto;
+  margin-block: clamp(2rem, 4vw, 3.5rem) clamp(1rem, 3vw, 2rem);
+  position: relative;
+  animation: fade-in 0.6s ease both;
+
+  /* 🌿 Icône circulaire décorative */
+  .icon-circle {
+    inline-size: 68px;
+    block-size: 68px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: color-mix(in oklab, var(--mat-sys-primary-container) 85%, transparent);
+    box-shadow: 0 4px 12px color-mix(in oklab, var(--mat-sys-primary) 25%, transparent);
+    backdrop-filter: blur(10px) saturate(1.1);
+    -webkit-backdrop-filter: blur(10px) saturate(1.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    mat-icon {
+      font-size: 32px;
+      width: 1em;
+      height: 1em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+      overflow: visible; /* ✔️ évite le rognage */
+      -webkit-font-smoothing: antialiased;
+      text-rendering: geometricPrecision;
+    }
+
+    &:hover {
+      transform: scale(1.06);
+      box-shadow: 0 6px 18px color-mix(in oklab, var(--mat-sys-primary) 35%, transparent);
+
+      mat-icon {
+        transform: scale(1.1);
+      }
+    }
+  }
+
+  /* ✨ Titre principal plus grand */
+  .section-title {
+    font-size: clamp(2.2rem, 4vw, 3rem);
+    font-weight: 800;
+    letter-spacing: -0.015em;
+    color: var(--mat-sys-on-surface);
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+
+    mat-icon {
+      font-size: 1.8rem;
+      color: var(--mat-sys-primary);
+      transform: translateY(2px);
+    }
+
+    .text-align {
+      position: relative;
+      top: -1px; /* alignement optique */
+    }
+  }
+
+  /* 💬 Sous-titre */
+  .section-subtitle {
+    margin: 0;
+    font-size: clamp(1rem, 1.8vw, 1.15rem);
+    line-height: 1.6;
+    color: var(--mat-sys-on-surface-variant);
+    max-inline-size: 60ch;
+    opacity: 0.9;
+  }
+
+
+}
+
+/* 🎨 Accent de section : Projects */
+.projects__head .icon-circle {
+  background: color-mix(in oklab, var(--mat-sys-tertiary-container) 85%, transparent);
+  box-shadow: 0 4px 12px color-mix(in oklab, var(--mat-sys-tertiary) 25%, transparent);
+
+  mat-icon {
+    color: var(--mat-sys-on-tertiary-container);
+  }
+}
+
+/* ✨ Animation douce */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* ===============================
+   Grille et cartes
+   =============================== */
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(0.75rem, 2vw, 1.25rem);
+  align-items: stretch;
+}
+
+/* Breakpoints */
+@media (min-width: 600px) {
+  .projects-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 1024px) {
+  .projects-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* Cartes projets */
+.project-card {
+  display: grid;
+  grid-template-rows: auto auto 1fr auto;
+  border-radius: 16px;
+  
+  overflow: hidden;
+  outline: none;
+  cursor: pointer;
+
+  background: color-mix(in oklab, var(--mat-sys-surface) 75%, transparent);
+  backdrop-filter: blur(10px) saturate(1.1);
+  -webkit-backdrop-filter: blur(10px) saturate(1.1);
+  box-shadow: var(--shadow-1);
+
+  transition: all .3s ease, transform .3s ease;
+
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    box-shadow:
+      0 10px 24px color-mix(in oklab, var(--mat-sys-shadow, #000) 12%, transparent),
+      0 1px 0 color-mix(in oklab, var(--mat-sys-surface) 40%, transparent);
+    opacity: 0;
+    transition: opacity .3s ease;
+  }
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-2);
+    &::after { opacity: 0.35; }
+  }
+
+  &:focus-visible {
+    transform: translateY(-2px);
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--mat-sys-primary) 40%, transparent),
+                var(--shadow-2);
+  }
+}
+
+/* Media */
+.card-media {
+  inline-size: 100%;
+  block-size: clamp(160px, 26vw, 220px);
+  overflow: hidden;
+
+  img {
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+    transform: scale(1.02);
+    transition: transform .6s ease;
+  }
+
+  .project-card:hover & img {
+    transform: scale(1.07);
+  }
+}
+
+/* Texte */
+mat-card-header {
+  padding-block: .75rem .25rem;
+}
+mat-card-title {
+  font-weight: 700;
+  color: var(--mat-sys-on-surface);
+}
+mat-card-subtitle {
+  color: var(--mat-sys-on-surface-variant);
+  opacity: .9;
+}
+
+/* Liste d’outils */
+.tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.75rem;
+  margin-top: 0.75rem;
+  justify-content: flex-start;
+}
+
+.tool {
+  --_border-color: color-mix(in oklab, var(--mat-sys-outline-variant) 50%, transparent);
+  --_hover-bg: color-mix(in oklab, var(--mat-sys-primary-container) 85%, transparent);
+
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  border-radius: 0.75rem;
+  border-color: var(--_border-color) !important;
+  backdrop-filter: blur(8px) saturate(1.1);
+  -webkit-backdrop-filter: blur(8px) saturate(1.1);
+  transition: all 0.25s ease;
+  padding-inline: 0.8rem;
+  padding-block: 0.35rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--mat-sys-on-surface-variant);
+
+  mat-icon {
+    font-size: 1.2rem;
+    width: 1em;
+    height: 1em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.25s ease, color 0.25s ease;
+  }
+
+  &:hover {
+    background: var(--_hover-bg);
+    border-color: color-mix(in oklab, var(--mat-sys-primary) 50%, transparent) !important;
+    color: var(--mat-sys-on-primary-container);
+
+    mat-icon {
+      transform: scale(1.1);
+      color: var(--mat-sys-primary);
+    }
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--mat-sys-primary);
+    outline-offset: 2px;
+  }
+}
+
+/* 🪶 Ajustement texte */
+.text-tweak {
+  line-height: 1;
+  white-space: nowrap;
+}
+
+/* 🌙 Mode sombre harmonisé */
+@media (prefers-color-scheme: dark) {
+  .tool {
+    --_border-color: color-mix(in oklab, var(--mat-sys-outline-variant) 40%, transparent);
+    --_hover-bg: color-mix(in oklab, var(--mat-sys-surface-container-highest) 85%, transparent);
+  }
+}
+
+/* Bouton modernisé */
+button[mat-stroked-button] {
+  --_border-color: color-mix(in oklab, var(--mat-sys-primary) 40%, transparent);
+  --_hover-bg: color-mix(in oklab, var(--mat-sys-primary) 10%, transparent);
+  --_focus-ring: color-mix(in oklab, var(--mat-sys-primary) 60%, transparent);
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+
+  border-color: var(--_border-color);
+  color: var(--mat-sys-primary);
+  background: color-mix(in oklab, var(--mat-sys-surface) 85%, transparent);
+  border-radius: 999px;
+
+  font-weight: 500;
+  letter-spacing: 0.015em;
+  padding: .55rem 1.25rem;
+
+  box-shadow: inset 0 1px 0
+    color-mix(in oklab, var(--mat-sys-surface) 40%, transparent);
+  transition:
+    transform .25s cubic-bezier(.2, .7, .2, 1),
+    background-color .25s ease,
+    box-shadow .25s ease;
+
+  mat-icon {
+    font-size: 1.25rem;
+    line-height: 1;
+    margin-inline-end: .35rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .text-tweak {
+    position: relative;
+    top: 0;
+    color: currentColor;
+    margin-right: 0;
+    font-size: 0.95rem;
+  }
+
+  &:hover {
+    background: var(--_hover-bg);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px color-mix(in oklab, var(--mat-sys-shadow) 15%, transparent);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--_focus-ring);
+    outline-offset: 2px;
+  }
+
+  &:active {
+    transform: translateY(1px);
+    box-shadow: inset 0 1px 2px
+      color-mix(in oklab, var(--mat-sys-shadow) 20%, transparent);
+  }
+
+  /* Mode sombre */
+  :host-context(.dark-theme) & {
+    background: color-mix(in oklab, var(--mat-sys-surface), transparent 70%);
+    --_border-color: color-mix(in oklab, var(--mat-sys-primary) 50%, transparent);
+    --_hover-bg: color-mix(in oklab, var(--mat-sys-primary) 20%, transparent);
+  }
+}
+
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+  .project-card:hover { transform: none; }
+  .card-media img { transform: none !important; }
+}
+
+/* 🌙 Dark Mode */
+:host-context(.dark-theme) {
+  .project-card {
+    background: color-mix(in oklab, var(--mat-sys-surface), transparent 70%);
+    box-shadow: var(--shadow-1);
+  }
+}
+
+
+/* ===============================
+   🧱 Limites de contenu (titre, texte, outils)
+   =============================== */
+
+/* 1️⃣ Limite le titre à une seule ligne */
+mat-card-title {
+  font-weight: 700;
+  color: var(--mat-sys-on-surface);
+  display: -webkit-box;
+  -webkit-line-clamp: 1; /* ✅ une seule ligne */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 2️⃣ Limite la description à quatre lignes */
+mat-card-subtitle {
+  color: var(--mat-sys-on-surface-variant);
+  opacity: 0.9;
+  display: -webkit-box;
+  -webkit-line-clamp: 4; /* ✅ quatre lignes max */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-height: 5.5em; /* pour conserver la hauteur visuelle */
+}
+
+/* 3️⃣ Points de suite pour outils cachés */
+.tools-ellipsis {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--mat-sys-on-surface-variant);
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-left: 0.25rem;
+  transform: translateY(-2px);
+  opacity: 0.8;
+}
+
+/* 4️⃣ Les outils eux-mêmes restent harmonisés */
+.tools {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.75rem;
+  margin-top: 0.75rem;
+  justify-content: flex-start;
+  overflow: hidden;
+}

@@ -1,0 +1,199 @@
+:host {
+  display: block;
+  /* Espace respirant autour du footer quand il est fixe sur desktop */
+  padding-inline: clamp(0.75rem, 2vw, 1.25rem);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* --- Conteneur principal --- */
+.footer {
+  /* Glassmorphism + Material You */
+  background: color-mix(in oklab, var(--mat-sys-surface) 80%, transparent);
+  backdrop-filter: blur(12px) saturate(1.1);
+  -webkit-backdrop-filter: blur(12px) saturate(1.1);
+  border-radius: 1rem;
+  box-shadow: var(--shadow-1);
+  transition: all 0.3s ease;
+  outline: 1px solid color-mix(in oklab, var(--mat-sys-outline-variant) 18%, transparent);
+
+  /* Mobile-first: fluide en bas de page */
+  position: static;
+  width: 100%;
+  max-width: 1200px;
+  margin-inline: auto;
+
+  /* Hover global (desktop) */
+  &:hover {
+    box-shadow: var(--shadow-2);
+  }
+}
+
+/* Fixe en bas pour >=768px (peut être ajusté selon votre layout/shell) */
+@media (min-width: 768px) {
+  .footer {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: clamp(0rem, 1.2vw, 0.75rem);
+    margin-inline: auto;
+    width: min(100%, 1200px);
+    z-index: 60; /* sous le header si besoin */
+  }
+}
+
+/* --- Interne --- */
+.footer__inner {
+  padding: 1rem;
+  padding-bottom: calc(1rem + env(safe-area-inset-bottom));
+
+  @media (min-width: 768px) {
+    padding: 1.25rem 2rem;
+  }
+}
+
+/* --- Barre principale --- */
+.footer__main {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  align-items: center;
+  justify-content: center;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+}
+
+/* Titre + année */
+.footer__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font: inherit;
+  color: var(--mat-sys-on-surface);
+  text-align: center;
+}
+
+.footer__title {
+  font-weight: 600;
+  letter-spacing: .2px;
+}
+
+.footer__year {
+  opacity: .7;
+}
+
+/* --- Liens --- */
+.footer__links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+    gap: 0.75rem;
+  }
+}
+
+.footer__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 999px;
+  text-decoration: none;
+  color: var(--mat-sys-on-surface);
+  outline: none;
+  transition: all 0.3s ease;
+  will-change: transform, box-shadow, background-color;
+
+  /* Éclairage coloré au survol + focus */
+  &:hover,
+  &:focus-visible {
+    background: color-mix(in oklab, var(--mat-sys-primary) 12%, transparent);
+    box-shadow: 0 6px 18px color-mix(in oklab, var(--mat-sys-primary) 25%, transparent);
+    transform: translateY(-1px);
+  }
+
+  /* Active */
+  &:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 10px color-mix(in oklab, var(--mat-sys-primary) 20%, transparent);
+  }
+}
+
+/* Icônes Material */
+.footer__icon {
+  font-size: 21px; /* 20–22 px */
+  width: 22px;
+  height: 22px;
+  line-height: 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  opacity: .9;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+
+  .footer__link:hover &,
+  .footer__link:focus-visible & {
+    transform: scale(1.08);
+    opacity: 1;
+  }
+}
+
+.footer__label {
+  font-size: 0.95rem;
+}
+
+/* --- Divider translucide --- */
+.footer__divider {
+  margin: 0.5rem 0 0.75rem;
+  opacity: 0.6;
+  border-top-color: color-mix(in oklab, var(--mat-sys-outline-variant) 30%, transparent);
+}
+
+/* --- Mentions --- */
+.footer__legal {
+  margin: 0;
+  text-align: center;
+  color: color-mix(in oklab, var(--mat-sys-on-surface) 90%, transparent);
+  font-size: 0.9rem;
+  letter-spacing: .2px;
+}
+
+/* --- Thème sombre --- */
+.dark-theme {
+  .footer {
+    background: color-mix(in oklab, var(--mat-sys-surface) 65%, transparent);
+    outline-color: color-mix(in oklab, var(--mat-sys-outline-variant) 24%, transparent);
+  }
+
+  .footer__divider {
+    border-top-color: color-mix(in oklab, var(--mat-sys-outline-variant) 26%, transparent);
+  }
+}
+
+/* --- Animation d’apparition douce --- */
+@keyframes fadeUpKey {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-up {
+  animation: fadeUpKey 480ms ease both 60ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fade-up {
+    animation: none;
+  }
+}

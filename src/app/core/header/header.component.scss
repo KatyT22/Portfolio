@@ -1,0 +1,265 @@
+/* ===========================
+   STRUCTURE GLOBALE
+=========================== */
+:host {
+  display: block;
+  position: relative;
+  z-index: 100;
+}
+
+/* ===========================
+   TOOLBAR FLOTTANTE
+=========================== */
+.toolbar {
+  position: sticky;
+  top: -400px;
+  inset-inline: 0;
+  z-index: 1000;
+  margin: 0.5rem auto;
+  padding: 0.5rem 1rem;
+  max-inline-size: min(1120px, 100% - 1rem);
+  border-radius: 1rem;
+  background: color-mix(in oklab, var(--mat-sys-surface) 75%, transparent);
+  backdrop-filter: blur(12px) saturate(1.15);
+  -webkit-backdrop-filter: blur(12px) saturate(1.15);
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  box-shadow: 0 6px 16px color-mix(in oklab, var(--mat-sys-shadow) 20%, transparent);
+  transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+  position: fixed; /* ⬅️ au lieu de sticky */
+  top:0;
+  z-index: 1000;
+
+
+  &:hover {
+    box-shadow: 0 10px 30px color-mix(in oklab, var(--mat-sys-shadow) 28%, transparent);
+  }
+}
+
+.left,
+.center,
+.right {
+  display: flex;
+  align-items: center;
+}
+
+.center {
+  justify-content: center;
+  gap: 0.25rem;
+}
+
+.right {
+  justify-content: flex-end;
+  gap: 0.25rem;
+}
+
+/* ===========================
+   BRAND
+=========================== */
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  text-decoration: none;
+  border-radius: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  color: var(--mat-sys-on-surface);
+  transition: background 0.3s ease, transform 0.3s ease;
+
+  &:hover {
+    background: color-mix(in oklab, var(--mat-sys-surface-variant) 25%, transparent);
+    transform: translateY(-1px);
+  }
+
+  /* === Cercle icône === */
+  .brand-icon {
+    display: grid;               /* centre le pictogramme parfaitement */
+    place-items: center;         /* centre horizontalement et verticalement */
+    inline-size: 40px;           /* largeur fixe */
+    block-size: 40px;            /* hauteur identique → cercle parfait */
+    border-radius: 50%;          /* cercle complet */
+    background: color-mix(in oklab, var(--mat-sys-primary-container) 40%, transparent);
+    box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--mat-sys-primary) 25%, transparent);
+    font-size: 22px;             /* taille de l’icône */
+    color: var(--mat-sys-primary);
+    flex-shrink: 0;              /* évite qu’il se déforme */
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+
+  .brand-text {
+    font-weight: 600;
+    font-size: clamp(0.9rem, 2vw, 1rem);
+    color: var(--mat-sys-on-surface);
+    line-height: 1.2;
+  }
+}
+
+
+/* ===========================
+   NAVIGATION DESKTOP
+=========================== */
+.nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  border-radius: 0.75rem;
+  padding: 0.5rem 0.75rem;
+  color: var(--mat-sys-on-surface-variant);
+  font-weight: 500;
+  transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease;
+
+  &:hover {
+    background: color-mix(in oklab, var(--mat-sys-surface-variant) 30%, transparent);
+    transform: translateY(-1px);
+  }
+
+  &.active {
+    color: var(--mat-sys-primary);
+    background: color-mix(in oklab, var(--mat-sys-primary-container) 45%, transparent);
+  }
+}
+
+/* ===========================
+   CTA (CONTACT)
+=========================== */
+.cta {
+  border-radius: 999px;
+  font-weight: 600;
+  color: var(--mat-sys-on-tertiary-container);
+  background: color-mix(in oklab, var(--mat-sys-tertiary) 15%, var(--mat-sys-tertiary-container) 85%);
+  box-shadow: 0 6px 16px color-mix(in oklab, var(--mat-sys-shadow) 20%, transparent);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 10px 30px color-mix(in oklab, var(--mat-sys-shadow) 28%, transparent);
+    transform: translateY(-2px);
+  }
+}
+
+/* ===========================
+   DRAWER MOBILE
+=========================== */
+.drawer {
+  position: fixed;        /* 👈 Pour flotter au-dessus du contenu */
+  top: 8px;              /* 👈 Descend sous la toolbar (hauteur typique Material) */
+  left: 0;                /* 👈 Collé à gauche */
+  z-index: 9999;          /* 👈 Passe au-dessus du main / router-outlet */
+  height: calc(100vh - 64px); /* 👈 Prend tout l’espace restant */
+
+  /* ton style existant */
+  --glass: color-mix(in oklab, var(--mat-sys-surface) 75%, transparent);
+  width: min(90vw, 360px);
+  background: var(--glass);
+  backdrop-filter: blur(16px) saturate(1.2);
+  -webkit-backdrop-filter: blur(16px) saturate(1.2);
+  border-radius: 0 1rem 1rem 0;
+  box-shadow: 0 10px 30px color-mix(in oklab, var(--mat-sys-shadow) 28%, transparent);
+  display: flex;
+  flex-direction: column;
+  animation: fadeSlide 0.35s ease both;
+  transform: translateX(-100%);
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &.open {
+    transform: translateX(0);
+  }
+}
+
+
+::ng-deep .mat-drawer-backdrop {
+  background: color-mix(in oklab, var(--mat-sys-surface) 70%, transparent);
+  backdrop-filter: blur(4px);
+  transition: opacity 0.3s ease;
+  z-index: 9998;
+}
+
+.drawer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0.75rem;
+  border-bottom: 1px solid color-mix(in oklab, var(--mat-sys-outline-variant) 40%, transparent);
+
+  .drawer-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    h2 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin: 0;
+    }
+  }
+}
+
+.drawer-list a {
+  border-radius: 0.75rem;
+  margin: 0.25rem 0.5rem;
+  transition: background 0.3s ease, transform 0.3s ease;
+
+  &:hover {
+    background: color-mix(in oklab, var(--mat-sys-surface-variant) 30%, transparent);
+    transform: translateX(4px);
+  }
+
+  &.active {
+    background: color-mix(in oklab, var(--mat-sys-primary-container) 45%, transparent);
+    color: var(--mat-sys-primary);
+  }
+}
+
+.drawer-actions {
+  margin-top: auto;
+  padding: 1rem;
+  display: grid;
+  gap: 0.5rem;
+
+  .action {
+    width: 100%;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+}
+
+/* ===========================
+   ANIMATIONS
+=========================== */
+@keyframes fadeSlide {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* ===========================
+   RESPONSIVE
+=========================== */
+.center,
+.cta {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .center {
+    display: flex;
+  }
+
+  .menu-btn {
+    display: none;
+  }
+
+  .cta {
+    display: inline-flex;
+  }
+}

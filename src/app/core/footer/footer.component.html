@@ -1,0 +1,35 @@
+<footer
+  class="footer fade-up"
+  role="contentinfo"
+  aria-label="Pied de page — informations et liens"
+>
+  <div class="footer__inner" id="footer-content">
+    <div class="footer__main" aria-labelledby="footer-content">
+      <div class="footer__brand" aria-label="Identité du site">
+        <span class="footer__title">{{ title }}</span>
+        <span class="footer__year" aria-hidden="true">· {{ currentYear }}</span>
+      </div>
+
+      <nav class="footer__links" aria-label="Liens externes">
+        @for (link of footerLinks; track link.label) {
+          <a
+            class="footer__link"
+            [href]="link.url"
+            target="_blank"
+            rel="noopener"
+            [attr.aria-label]="'Ouvrir ' + link.label + ' (nouvel onglet)'"
+          >
+            <mat-icon class="footer__icon" aria-hidden="true" [svgIcon]="link.icon"></mat-icon>
+            <span class="footer__label">{{ link.label }}</span>
+          </a>
+        }
+      </nav>
+    </div>
+
+    <mat-divider class="footer__divider" role="separator" aria-hidden="true"></mat-divider>
+
+    <p class="footer__legal" aria-label="Mentions légales">
+      © {{ currentYear }} {{ title }} — Tous droits réservés
+    </p>
+  </div>
+</footer>

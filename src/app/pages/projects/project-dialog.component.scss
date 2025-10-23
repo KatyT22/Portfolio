@@ -1,0 +1,204 @@
+/* Container — glassmorphism card centered inside the dialog panel */
+.project-dialog {
+  width: min(92vw, 1000px);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+  padding: 1rem;
+  margin: 0 auto;
+
+  border-radius: 20px;
+  background: color-mix(in oklab, var(--mat-sys-surface) 80%, transparent);
+  backdrop-filter: blur(12px) saturate(1.1);
+  box-shadow: var(--shadow-2);
+
+  box-shadow:
+    var(--shadow-2),
+    inset 0 1px 0
+      color-mix(in oklab, var(--mat-sys-surface) 60%, transparent),
+    inset 0 0 24px
+      color-mix(in oklab, var(--mat-sys-primary) 10%, transparent);
+
+  color: var(--mat-sys-on-surface);
+  animation: dialogFadeIn 260ms cubic-bezier(.2, .7, .2, 1) both;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}
+
+/* ✅ Desktop : dialog élargie + grille asymétrique */
+@media (min-width: 720px) {
+  .project-dialog {
+    width: min(90vw, 1100px);
+    grid-template-columns: 45% 55%;
+    padding: 1.75rem;
+  }
+}
+
+/* Image */
+.project-image {
+  margin: 0;
+  border-radius: 16px;
+  overflow: hidden;
+  align-self: stretch;
+  background: color-mix(in oklab, var(--mat-sys-surface-variant) 40%, transparent);
+
+  box-shadow:
+    inset 0 0 0 1px color-mix(in oklab, var(--mat-sys-outline-variant) 40%, transparent),
+    0 8px 24px color-mix(in oklab, var(--mat-sys-shadow) 30%, transparent);
+
+  img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    transform: scale(1);
+    transition: transform 360ms cubic-bezier(.2, .7, .2, 1);
+  }
+
+  &:hover img {
+    transform: scale(1.03);
+  }
+}
+
+/* Contenu */
+.project-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: clamp(0rem, 1vw, 1rem);
+  border-radius: 15px;
+  margin-right: 15px;
+
+  .dialog-header {
+    display: grid;
+    gap: .75rem;
+  }
+
+  .dialog-title {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    margin: 0;
+    font-weight: 700;
+    font-size: clamp(1.3rem, 2.5vw, 2rem);
+    line-height: 1.2;
+    color: var(--mat-sys-on-surface);
+
+    mat-icon {
+      /* évite le rognage à cause du 24px par défaut */
+      width: 1em;
+      height: 1em;
+      font-size: 1.3em;        /* garde ton scale */
+      line-height: 1;          /* aligne le glyphe dans la boîte */
+      flex: 0 0 auto;          /* empêche le squish en flex */
+      display: inline-grid;    /* centre parfaitement le pictogramme */
+      place-items: center;
+      overflow: visible;       /* par sécurité, si un style externe persiste */
+      color: var(--mat-sys-primary);
+      transform: translateY(2px); /* léger abaissement demandé */
+    }
+  }
+
+
+  .dialog-description {
+    margin: 0;
+    color: var(--mat-sys-on-surface-variant);
+    line-height: 1.6;
+  }
+}
+
+/* Tools */
+.tools-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+  padding: 0;
+  margin: .25rem 0 0 0;
+  list-style: none;
+}
+
+.tool-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: .375rem;
+  padding: .4rem .75rem;
+  border-radius: 999px;
+
+  background: color-mix(in oklab, var(--mat-sys-surface) 65%, transparent);
+  border: 1px solid color-mix(in oklab, var(--mat-sys-outline-variant) 40%, transparent);
+  color: var(--mat-sys-on-surface);
+  box-shadow: 0 1px 1px color-mix(in oklab, var(--mat-sys-shadow) 10%, transparent);
+
+  mat-icon {
+    font-size: 1rem;
+    color: var(--mat-sys-primary);
+  }
+
+  span {
+    font-size: .85rem;
+    line-height: 1;
+  }
+}
+
+/* Footer */
+.dialog-footer {
+  margin-top: auto;
+  display: flex;
+  justify-content: flex-start;
+
+  button[mat-stroked-button] {
+    --_stroke: color-mix(in oklab, var(--mat-sys-primary) 55%, transparent);
+    border-color: var(--_stroke);
+    color: var(--mat-sys-primary);
+    border-radius: 999px;
+    padding-inline: 1.25rem;
+    gap: .5rem;
+
+    &:hover,
+    &:focus-visible {
+      background: color-mix(in oklab, var(--mat-sys-primary) 12%, transparent);
+    }
+
+    &:focus-visible {
+      outline: 2px solid color-mix(in oklab, var(--mat-sys-primary) 50%, transparent);
+      outline-offset: 2px;
+    }
+
+    mat-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}
+
+/* Dark theme */
+:host-context(.dark-theme) {
+  .project-dialog {
+    background: color-mix(in oklab, var(--mat-sys-surface), transparent 60%);
+    box-shadow: var(--shadow-1);
+  }
+
+  .project-image {
+    background: color-mix(in oklab, var(--mat-sys-surface-variant) 25%, transparent);
+  }
+
+  .tool-chip {
+    background: color-mix(in oklab, var(--mat-sys-surface) 40%, transparent);
+  }
+}
+
+/* Animation */
+@keyframes dialogFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

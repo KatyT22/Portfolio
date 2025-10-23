@@ -1,0 +1,40 @@
+<main class="project-dialog" role="dialog" aria-modal="true">
+  <!-- Image principale -->
+  <figure class="project-image" aria-label="Image du projet">
+    <img [src]="data.image" [alt]="data.title" loading="lazy" />
+  </figure>
+
+  <!-- Contenu principal -->
+  <section class="project-content">
+    <header class="dialog-header">
+      <h2 class="dialog-title">
+        <mat-icon aria-hidden="true">folder_open</mat-icon>
+        {{ data.title }}
+      </h2>
+      <p class="dialog-description">{{ data.description }}</p>
+      <mat-divider></mat-divider>
+      <p class="dialog-description">{{ data.descriptionDetail }}</p>
+    </header>
+
+    <ul class="tools-list" aria-label="Outils utilisés">
+  @for (tool of data.tools; track tool) {
+    <li class="tool-chip" matTooltip="{{ tool.tooltip }}" aria-label="{{ tool.name }}">
+      <mat-icon aria-hidden="true" [svgIcon]="tool.logo"></mat-icon>
+      <span>{{ tool.name }}</span>
+    </li>
+  }
+</ul>
+
+    <footer class="dialog-footer">
+      <button
+        mat-stroked-button
+        mat-dialog-close
+        cdkFocusInitial
+        aria-label="Fermer le projet"
+      >
+        <mat-icon>close</mat-icon>
+        <span class="text-tweak">Fermer</span>
+      </button>
+    </footer>
+  </section>
+</main>
