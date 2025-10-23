@@ -4,3 +4,17 @@
 
 [[plugins]]
   package = "@netlify/angular-runtime"
+
+# ✅ Force toutes les routes vers l'app Angular
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+  force = false
+  conditions = {Role = ["admin"]}
+
+# ✅ Redirect spécifique pour la racine
+[[redirects]]
+  from = "/"
+  to = "/index.html"
+  status = 200
