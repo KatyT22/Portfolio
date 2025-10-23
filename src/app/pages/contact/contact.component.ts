@@ -24,6 +24,11 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class ContactComponent {
   form!: FormGroup;
+
+  isSubmitting = false;
+  submitSuccess = false;
+  submitError = false;
+
   constructor(private fb: FormBuilder) {
     this.form = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(2)]],
@@ -34,9 +39,31 @@ export class ContactComponent {
 
   submit() {
     if (this.form.invalid) return;
-    const v = this.form.value;
-    window.location.href = `mailto:tchatokeykaty@yahoo.fr?subject=Contact%20Portfolio&body=${encodeURIComponent(
-      `Nom: ${v['name']}\nEmail: ${v['email']}\n\n${v['message']}`
-    )}`;
+    
+    this.isSubmitting = true;
+    this.submitSuccess = false;
+    this.submitError = false;
+
+    const formData = new FormData();
+    formData.append('form-name', 'contact');
+    formData.append('name', this.form.value.name);
+    formData.append('email', this.form.value.email);
+    formData.append('message', this.form.value.message);
+
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams(formData as any).toString(),
+    })
+      .then(() => {
+        this.submitSuccess = true;
+        this.form.reset();
+      })
+      .catch(() => {
+        this.submitError = true;
+      })
+      .finally(() => {
+        this.isSubmitting = false;
+      });
   }
 }
