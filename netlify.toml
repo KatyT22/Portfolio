@@ -1,6 +1,7 @@
 [build]
   command = "npm run build"
   publish = "dist/portfolio-katy/browser"
+  functions = ".netlify/functions" # attention au point !
 
 [[plugins]]
   package = "@netlify/angular-runtime"
