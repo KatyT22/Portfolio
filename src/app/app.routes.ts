@@ -1,9 +1,9 @@
 import { Route } from '@angular/router';
 
 export const routes: Route[] = [
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
+ 
   {
-    path: 'home',
+    path: '',
     loadComponent: () =>
       import('./pages/home/home.component').then((m) => m.HomeComponent),
     data: { title: 'Accueil' },
@@ -38,5 +38,5 @@ export const routes: Route[] = [
       ),
     data: { title: 'Contact' },
   },
-  { path: '**', redirectTo: 'home' },
+  { path: '**', redirectTo: '' } // ✅ Redirige vers racine
 ];
