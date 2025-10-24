@@ -70,7 +70,7 @@ export class HomeComponent implements AfterViewInit {
   /** 🧭 1️⃣ Section Hero */
   hero = {
     title: 'Katy Tcha-Tokey',
-    subtitle: 'Designer/Chercheuse UX/UI, Développeuse Fullstack',
+    subtitle: 'Designer / Chercheuse UX/UI / Développeuse Fullstack',
     tagline:
       'Je conçois des interfaces simples, utiles et élégantes, guidées par la recherche et centrées sur l’humain.',
     ctaPrimary: { label: 'Voir mes maquettes', icon: 'collections', route: '#gallery' },
