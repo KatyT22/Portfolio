@@ -1,4 +1,4 @@
-import { Component, Inject, PLATFORM_ID, AfterViewInit } from '@angular/core';
+import { Component, Inject, PLATFORM_ID, AfterViewInit, OnInit } from '@angular/core';
 import { isPlatformBrowser, CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -16,6 +16,7 @@ import {
   Tooltip as ChartTooltip,
   Legend
 } from 'chart.js';
+import { SkillsService } from '../../services/skills.service';
 
 Chart.register(
   RadarController,
@@ -27,12 +28,7 @@ Chart.register(
   Legend
 );
 
-interface Skill {
-  label: string;
-  description: string;
-  icon: string;
-  value: number;
-}
+
 
 interface ProjectPreview {
   id: string;
@@ -69,7 +65,7 @@ interface Stat {
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements AfterViewInit {
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+  constructor(@Inject(PLATFORM_ID) private platformId: Object, private skillsService: SkillsService) {}
 
   /** 🧭 1️⃣ Section Hero */
   hero = {
@@ -90,15 +86,7 @@ Grâce à une approche centrée sur l’humain, je conçois des interfaces intui
     button: { label: 'Découvrir mon parcours', route: '/experience' },
   };
 
-  /** 🎯 3️⃣ Compétences clés */
-  skills: Skill[] = [
-    { label: 'Front-End & UI', description: 'Front-End & UI', icon: 'web', value: 81 },
-    { label: 'Back-End & BDD', description: 'Back-End & Base de Données', icon: 'memory', value: 74 },
-    { label: 'Cloud & DevOps', description: 'Cloud & DevOps', icon: 'cloud', value: 78 },
-    { label: 'VR', description: 'Réalité Virtuelle', icon: 'vrpano', value: 79 },
-    { label: 'Data & UX Research', description: 'Data & Recherche UX', icon: 'analytics', value: 78 },
-    { label: 'Com. & Collab.', description: 'Communication & Collaboration', icon: 'groups', value: 78 },
-  ];
+ 
 
   /** ✅ Radar Chart — exécuté seulement dans le navigateur */
   ngAfterViewInit(): void {
@@ -113,7 +101,7 @@ Grâce à une approche centrée sur l’humain, je conçois des interfaces intui
         type: 'radar',
         data: {
           // 🧩 chaque label devient un tableau de 2 lignes
-          labels: this.skills.map((s) => {
+          labels: this.skillsService.skills.map((s) => {
             const words = s.label.split(' ');
             const mid = Math.ceil(words.length / 2);
             return [words.slice(0, mid).join(' '), words.slice(mid).join(' ')];
@@ -122,7 +110,7 @@ Grâce à une approche centrée sur l’humain, je conçois des interfaces intui
           datasets: [
             {
               label: 'Compétences',
-              data: this.skills.map((s) => s.value),
+              data: this.skillsService.skills.map((s) => s.value),
               fill: true,
               backgroundColor: 'rgba(0,0,0,0)',
               borderColor: getComputedStyle(document.documentElement)
