@@ -913,13 +913,63 @@ button[mat-stroked-button] {
   .projects__grid { grid-template-columns: repeat(3, 1fr); }
 }
 
-/* ------------------------------
-   Subtle motion on hover/press
-   ------------------------------ */
-.skill:active,
-.project:active,
-.value:active,
-.stat:active,
-.tool:active {
-  transform: translateY(0); box-shadow: var(--shadow-1);
+
+/* =========================================
+   ✅ Désactivation ciblée selon le contexte
+   ========================================= */
+
+/* 🧭 Non-interactifs (valeurs, stats, about, radar) — toujours sans animation */
+.value,
+.stat,
+.about,
+.radar-wrapper {
+  transition: none !important;
+  cursor: default !important;
+
+  &:hover,
+  &:focus {
+    transform: none !important;
+    box-shadow: none !important;
+  }
+}
+
+/* 🧰 Tools — avec distinction desktop / mobile */
+
+/* 💻 Desktop : garde les effets légers + tooltip */
+@media (hover: hover) and (pointer: fine) {
+  .tool {
+    cursor: default;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+
+    &:hover,
+    &:focus-visible {
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-1);
+      background: color-mix(in oklab, var(--mat-sys-surface), transparent 5%);
+    }
+  }
+}
+
+/* 📱 Mobile : désactive totalement les effets */
+@media (hover: none) and (pointer: coarse) {
+  .tool {
+    transition: none !important;
+    cursor: default !important;
+    &:hover,
+    &:focus {
+      transform: none !important;
+      box-shadow: none !important;
+      background: none !important;
+    }
+  }
+}
+
+/* 🧩 Éléments réellement interactifs */
+a,
+button,
+[mat-button],
+[mat-raised-button],
+.project,
+.gallery__thumb {
+  cursor: pointer !important;
 }

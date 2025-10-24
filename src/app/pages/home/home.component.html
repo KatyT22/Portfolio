@@ -123,7 +123,10 @@
                 role="listitem"
                 class="tool"
                 [matTooltip]="t.tooltip"
+                [matTooltipTouchGestures]="'off'"
+                #tip="matTooltip"
                 matTooltipPosition="above"
+                (click)="isMobile() ? tip.toggle() : null"
                 aria-label="{{ t.name }} — {{ t.tooltip }}">
           <mat-icon aria-hidden="true" [svgIcon]="t.logo"></mat-icon>
           <span class="text-tweak">{{ t.name }}</span>

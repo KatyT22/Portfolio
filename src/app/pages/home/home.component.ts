@@ -1,4 +1,4 @@
-import { Component, Inject, PLATFORM_ID, AfterViewInit, OnInit } from '@angular/core';
+import { Component, Inject, PLATFORM_ID, AfterViewInit, OnInit, signal } from '@angular/core';
 import { isPlatformBrowser, CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -6,6 +6,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterLink } from '@angular/router';
 import { Tool } from '../../core/models/tool.model';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import {
   Chart,
   RadarController,
@@ -65,7 +66,13 @@ interface Stat {
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements AfterViewInit {
-  constructor(@Inject(PLATFORM_ID) private platformId: Object, private skillsService: SkillsService) {}
+  isMobile = signal(false);
+
+  constructor(@Inject(PLATFORM_ID) private platformId: Object, private skillsService: SkillsService, private bp: BreakpointObserver) {
+    this.bp.observe([Breakpoints.Handset])
+      .subscribe(r => this.isMobile.set(r.matches));
+  }
+  
 
   /** 🧭 1️⃣ Section Hero */
   hero = {
