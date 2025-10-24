@@ -82,7 +82,7 @@ export class SkillsService {
       ],
     },
     {
-      title: 'Langues',
+      title: 'languages',
       icon: 'language',
       intro:
         'Communiquer avec clarté et précision dans plusieurs langues, à l’écrit comme à l’oral, pour collaborer dans des contextes internationaux.',
