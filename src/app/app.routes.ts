@@ -3,7 +3,7 @@ import { Route } from '@angular/router';
 export const routes: Route[] = [
  
   {
-    path: '',
+    path: 'home',
     loadComponent: () =>
       import('./pages/home/home.component').then((m) => m.HomeComponent),
     data: { title: 'Accueil' },
@@ -38,5 +38,5 @@ export const routes: Route[] = [
       ),
     data: { title: 'Contact' },
   },
-  { path: '**', redirectTo: '' } // ✅ Redirige vers racine
+  { path: '**', redirectTo: 'home' } // ✅ Redirige vers racine
 ];

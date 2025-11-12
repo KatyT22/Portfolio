@@ -205,15 +205,18 @@
       font-size: 1.2rem;
       color: var(--mat-sys-primary);
       margin-right: 0.5rem;
+      overflow: hidden;
     }
 
     .skill-label {
+      font-size: 0.9rem;
       flex: 1;
       color: var(--mat-sys-on-surface);
     }
 
     .skill-value {
-      font-weight: 600;
+      font-size: 0.9rem;
+      font-weight: 400;
       color: var(--mat-sys-primary);
     }
   }
