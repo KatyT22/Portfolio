@@ -18,21 +18,23 @@
       [formGroup]="form" 
       (ngSubmit)="submit()" 
       novalidate 
-      class="contact-form"
-      name="contact"
-      method="POST"
-      data-netlify="true"
-      netlify-honeypot="bot-field"
-    >
-      <!-- ✅ Champs cachés obligatoires pour Netlify -->
-      <input type="hidden" name="form-name" value="contact" />
-      
-      <!-- ✅ Honeypot anti-spam (caché) -->
-      <p style="display: none;">
-        <label>Don't fill this out if you're human: <input name="bot-field" /></label>
+      class="contact-form">
+
+      <!-- ✅ Honeypot anti-spam (caché, contrôlé par Angular) -->
+      <p class="bot-field-wrapper" aria-hidden="true">
+        <label>
+          Ne remplissez pas ce champ si vous êtes humain :
+          <input
+            type="text"
+            name="botField"
+            formControlName="botField"
+            autocomplete="off"
+            tabindex="-1"
+          />
+        </label>
       </p>
 
-      <mat-form-field appearance="outline" class="form-field">
+      <mat-form-field appearance="outline" class="form-field form-field--half">
         <mat-label>Nom</mat-label>
         <input 
           matInput 
@@ -49,7 +51,7 @@
         }
       </mat-form-field>
 
-      <mat-form-field appearance="outline" class="form-field">
+      <mat-form-field appearance="outline" class="form-field form-field--half">
         <mat-label>Email</mat-label>
         <input 
           matInput 
@@ -66,7 +68,7 @@
         }
       </mat-form-field>
 
-      <mat-form-field appearance="outline" class="form-field">
+      <mat-form-field appearance="outline" class="form-field form-field--full">
         <mat-label>Message</mat-label>
         <textarea
           matInput
@@ -76,12 +78,17 @@
           required
           aria-label="Votre message"
         ></textarea>
-        @if (form.get('message')?.invalid && form.get('message')?.touched) {
-          <mat-error>
-            Votre message doit contenir au moins 10&nbsp;caractères.
-          </mat-error>
-        }
+        @if (form.get('message')?.touched && form.get('message')?.hasError('required')) {
+            <mat-error>Le message ne peut pas être vide.</mat-error>
+          }
+          @if (form.get('message')?.touched && form.get('message')?.hasError('minlength')) {
+            <mat-error>Le message doit contenir au moins 10&nbsp;caractères.</mat-error>
+          }
+          @if (form.get('message')?.touched && form.get('message')?.hasError('maxlength')) {
+            <mat-error>Le message est trop long (max. 5000 caractères).</mat-error>
+          }
       </mat-form-field>
+    
 
       <button
         mat-raised-button
