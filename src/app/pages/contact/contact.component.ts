@@ -110,6 +110,7 @@ export class ContactComponent {
       },
       error: (err) => {
         console.error('Erreur envoi formulaire', err);
+        console.log('Corps renvoyé par la Lambda : ', err.error);
         this.submitError = true;
         this.isSubmitting = false;
       }
