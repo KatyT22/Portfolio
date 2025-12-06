@@ -180,21 +180,24 @@
     list-style: none;
     margin: 0;
     padding: 0;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    gap: 0.75rem 1rem;
+    display: flex;            /* ✅ une seule colonne */
+    flex-direction: column;   /* empile les skills verticalement */
+    gap: 0.75rem;
   }
 
   .skill-item {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    /* plutôt que space-between, on laisse le texte prendre la place
+     et on pousse la valeur avec margin-left:auto */
+    justify-content: flex-start;
     background: color-mix(in oklab, var(--mat-sys-surface-container-highest) 75%, transparent);
     padding: 0.85rem 1.1rem;
     border-radius: 0.9rem;
     font-size: 0.95rem;
     font-weight: 500;
     transition: all 0.3s ease;
+    gap: 0.5rem; 
 
     &:hover {
       background: color-mix(in oklab, var(--mat-sys-primary-container) 80%, transparent);
@@ -204,20 +207,27 @@
     mat-icon {
       font-size: 1.2rem;
       color: var(--mat-sys-primary);
-      margin-right: 0.5rem;
-      overflow: hidden;
+      margin-right: 0.25rem;
+      flex: 0 0 auto;            // ✅ ne rétrécit plus
+      overflow: visible;         // ✅ on ne coupe plus l’icône
     }
 
     .skill-label {
       font-size: 0.9rem;
-      flex: 1;
+      flex: 1 1 auto;            // prend tout l’espace dispo entre icône & valeur
+      min-width: 0;              // important pour que l’ellipsis fonctionne
       color: var(--mat-sys-on-surface);
+      white-space: nowrap;       // ✅ une seule ligne
+      overflow: hidden;          // ✅ coupe ce qui dépasse
+      text-overflow: ellipsis;   // ✅ affiche "..."
     }
 
     .skill-value {
       font-size: 0.9rem;
       font-weight: 400;
       color: var(--mat-sys-primary);
+      margin-left: 0.4rem;
+      flex: 0 0 auto;            // ne se fait pas écraser non plus
     }
   }
 }
